@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { useRef, useState, useEffect } from 'react'
 import logoBulb from '../assets/logo-bulb.png'
 
-// Edita este array para cambiar el texto que se mueve — ahora separado del hero, sin sobreposición
 const MARQUEE_ITEMS = ['Diseño web', 'Software a medida', 'Instalación', 'Soporte', 'Automatización', 'UX/UI']
 
 const SERVICES_PREVIEW = [
@@ -37,14 +36,14 @@ const PROCESS = [
     short: 'Entendemos tu contexto y objetivos.',
     img: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop&auto=format',
     desc: 'Sesión de descubrimiento de 45 min. Mapeamos tu proceso actual, dolores y métricas de éxito. Sin compromiso, con preguntas incómodas que ahorran meses.',
-    bullets: ['Entrevista con stakeholders', 'Auditoría rápida de lo existente', 'Definición de objetivos y KPIs'],
+    bullets: ['Entrevista con stakeholders', 'Auditoría rápida de lo existente', 'Definición de objetivos'],
   },
   {
     n: '02',
     t: 'Propuesta',
     short: 'Plan claro con tiempos y costos.',
     img: 'https://images.unsplash.com/photo-1454165205744-3b78555e5572?w=800&h=600&fit=crop&auto=format',
-    desc: 'Te entregamos roadmap técnico, stack, hitos semanales y presupuesto cerrado. Sabes exactamente qué construir, cuánto tarda y cuánto cuesta.',
+    desc: 'Te entregamos Mockups, la planeacion y el presupuesto cerrado. Sabes exactamente qué construir, cuánto tarda y cuánto cuesta.',
     bullets: ['Arquitectura y stack', 'Cronograma por sprints', 'Presupuesto transparente'],
   },
   {
@@ -65,13 +64,13 @@ const PROCESS = [
   },
 ]
 
-function Reveal({ children, delay = 0, y = 18 }) {
+function Reveal({ children, delay = 0, y = 14 }) {
   return (
     <motion.div
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.65, delay, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] }}
     >
       {children}
     </motion.div>
@@ -81,7 +80,7 @@ function Reveal({ children, delay = 0, y = 18 }) {
 export default function Home() {
   const heroRef = useRef(null)
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
-  const imgY = useTransform(scrollYProgress, [0, 1], ['0%', '14%'])
+  const imgY = useTransform(scrollYProgress, [0, 1], ['0%', '10%'])
   const [active, setActive] = useState(null)
 
   useEffect(() => {
@@ -91,163 +90,226 @@ export default function Home() {
 
   return (
     <div className="bg-[#F9F8F6] text-[#0F0F0F] overflow-clip">
-      {/* HERO */}
-      <section ref={heroRef} className="relative bg-[#0F0F0F] text-white min-h-[92vh] pt-[64px] grid lg:grid-cols-[1.05fr_0.95fr] overflow-hidden">
-        <motion.div className="px-6 md:px-10 lg:px-16 py-14 lg:py-20 flex flex-col justify-center relative z-10">
+      {/* HERO — Stripe Bold: gradient bulb + código */}
+      <section ref={heroRef} className="relative bg-[#0F0F0F] text-white min-h-[88vh] pt-[64px] grid lg:grid-cols-[1.05fr_0.95fr] overflow-hidden">
+        {/* Gradient Stripe — bulb azul->púrpura */}
+        <div className="absolute inset-0 -z-0">
+          <div className="absolute -top-32 -left-20 w-[900px] h-[520px] bg-gradient-to-br from-[#0EA5E9] via-[#6366F1] to-[#8B5CF6] opacity-[0.18] blur-[80px] rounded-[40%]" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[140%] h-[420px] bg-gradient-to-r from-[#06B6D4]/10 via-[#7C3AED]/10 to-[#EC4899]/10 -skew-y-2" />
+          <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: `linear-gradient(white 1px, transparent 1px), linear-gradient(90deg, white 1px, transparent 1px)`, backgroundSize: '36px 36px' }} />
+        </div>
+
+        <div className="px-6 md:px-10 lg:px-14 py-12 lg:py-16 flex flex-col justify-center relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15, duration: 0.5 }}
-            className="inline-flex items-center gap-2.5 text-white/45 text-[11px] font-medium tracking-[0.16em] uppercase mb-8"
+            transition={{ delay: 0.12, duration: 0.5 }}
+            className="inline-flex items-center gap-2 text-white/40 text-[11px] font-[JetBrains_Mono] tracking-[0.14em] uppercase mb-7"
           >
-            <img src={logoBulb} alt="" className="w-7 h-7 object-contain" />
-            Estudio de tecnología
+            <img src={logoBulb} alt="" className="w-5 h-5 object-contain" />
+            Estudio de tecnología — Colombia
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-            className="font-[Space_Grotesk] font-semibold leading-[0.9] tracking-[-0.04em] text-[54px] sm:text-[66px] lg:text-[78px] xl:text-[84px]"
+            transition={{ delay: 0.18, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="font-[Space_Grotesk] font-medium leading-[0.88] tracking-[-0.045em] text-[48px] sm:text-[60px] lg:text-[68px] xl:text-[74px]"
           >
             Tecnología<br />
             que hace<br />
-            <span className="font-[Instrument_Serif] italic font-normal tracking-[-0.03em]">crecer</span><br />
+            <span className="font-[Instrument_Serif] italic font-normal tracking-[-0.02em] bg-gradient-to-r from-[#7DD3FC] via-[#A78BFA] to-[#F0ABFC] bg-clip-text text-transparent">crecer</span><br />
             tu negocio.
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-            className="text-white/55 text-[15px] md:text-[16px] leading-relaxed max-w-[420px] mt-6"
+            transition={{ delay: 0.35, duration: 0.5 }}
+            className="text-white/55 text-[13.5px] leading-[1.7] max-w-[400px] mt-5 font-[Inter]"
           >
-            Páginas web, software a medida e instalación. Diseño y desarrollo sin plantillas genéricas.
+            Páginas web, software a medida e instalación. Infraestructura que escala — sin plantillas genéricas.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.6 }}
-            className="flex flex-wrap gap-3 mt-9"
+            transition={{ delay: 0.42, duration: 0.5 }}
+            className="flex flex-wrap gap-2.5 mt-7"
           >
-            <Link
-              to="/contacto"
-              className="inline-flex items-center gap-2 bg-white text-black hover:bg-zinc-100 px-7 py-3.5 text-[14px] font-semibold rounded-full transition-colors"
-            >
+            <Link to="/contacto" className="inline-flex items-center gap-2 bg-white text-black hover:bg-white/90 px-7 py-3 text-[13px] font-medium rounded-full shadow-[0_8px_24px_rgba(0,0,0,0.2)] transition-colors">
               Solicitar propuesta
             </Link>
-            <Link
-              to="/servicios"
-              className="inline-flex items-center gap-2 border border-white/15 hover:border-white/30 hover:bg-white/5 text-white px-7 py-3.5 text-[14px] font-medium rounded-full transition-colors"
-            >
+            <Link to="/servicios" className="inline-flex items-center gap-2 border border-white/15 hover:border-white/25 hover:bg-white/[0.06] text-white px-6 py-3 text-[13px] font-medium rounded-full transition-colors">
               Ver servicios
             </Link>
           </motion.div>
-        </motion.div>
 
-        <div className="relative h-[420px] lg:h-auto overflow-hidden bg-[#1A1A1A]">
-          <motion.img
-            style={{ y: imgY, scale: 1.06 }}
-            src="https://images.unsplash.com/photo-1783520093896-e8591d0bdcf9?w=900&h=900&fit=crop&auto=format"
-            alt="Equipo"
-            className="absolute inset-0 w-full h-[112%] object-cover opacity-[0.7]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0F0F0F] via-transparent to-transparent lg:via-[#0F0F0F]/15" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F0F]/50 to-transparent" />
-          <div className="absolute top-6 right-6 hidden lg:flex items-center gap-2 bg-white text-black px-3.5 py-2 rounded-full text-[11px] font-semibold tracking-wide shadow-xl">
-            <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" /> Disponible para nuevos proyectos
+          {/* Logos Stripe-style */}
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="hidden lg:flex items-center gap-5 mt-10 pt-6 border-t border-white/6">
+            <span className="text-[10px] font-[JetBrains_Mono] tracking-[0.12em] uppercase text-white/25">Stack</span>
+            <div className="flex items-center gap-4 text-[12px] font-medium text-white/45">
+              <span>Next.js</span><span className="w-px h-3 bg-white/10" /><span>CMS</span><span className="w-px h-3 bg-white/10" /><span>Vercel</span>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Derecha — ventana código Stripe */}
+        <div className="relative h-[440px] lg:h-auto overflow-hidden bg-transparent border-t lg:border-t-0 lg:border-l border-white/6 flex items-center justify-center p-6 lg:p-10">
+          <motion.img style={{ y: imgY }} src="https://images.unsplash.com/photo-1783520093896-e8591d0bdcf9?w=900&h=900&fit=crop&auto=format" alt="" className="absolute inset-0 w-full h-full object-cover opacity-[0.06] grayscale" />
+          
+          <motion.div initial={{ y: 14, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.5, duration: 0.6 }} className="relative w-full max-w-[480px] bg-[#151515]/90 backdrop-blur border border-white/10 rounded-[14px] overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.45),0_0_0_1px_rgba(255,255,255,0.06)]">
+            <div className="flex items-center gap-1.5 px-4 py-3 border-b border-white/6 bg-gradient-to-r from-white/[0.03] to-transparent">
+              <span className="w-3 h-3 rounded-full bg-[#FF5F56]" /><span className="w-3 h-3 rounded-full bg-[#FFBD2E]" /><span className="w-3 h-3 rounded-full bg-[#27C93F]" />
+              <span className="ml-3 text-[11px] font-[JetBrains_Mono] text-white/30">silmtech.config.ts</span>
+              <span className="ml-auto text-[10px] font-[JetBrains_Mono] text-emerald-400/80">● live</span>
+            </div>
+            <pre className="p-5 text-[12.5px] leading-[1.7] font-[JetBrains_Mono] overflow-x-auto">
+              <code className="text-white/85">
+                <span className="text-white/25">// proyecto: tu-empresa.com</span>{'\n'}
+                <span className="text-[#9A96FF]">export</span> <span className="text-white/60">default</span> {'{'} {'\n'}
+                {'  '}<span className="text-[#7DD3FC]">site</span>: <span className="text-[#86EFAC]">"tu-empresa.com"</span>,{'\n'}
+                {'  '}<span className="text-[#7DD3FC]">stack</span>: [<span className="text-[#86EFAC]">"Next.js"</span>, <span className="text-[#86EFAC]">"CMS"</span>],{'\n'}
+                {'  '}<span className="text-[#7DD3FC]">deploy</span>: <span className="text-[#86EFAC]">"vercel"</span>,{'\n'}
+                {'  '}<span className="text-[#7DD3FC]">estado</span>: <span className="text-[#FBBF24]">"en producción"</span> {'\n'}
+                {'}'}
+              </code>
+            </pre>
+            <div className="px-4 py-3 bg-[#0F0F0F] border-t border-white/6 flex items-center justify-between">
+              <span className="text-[11px] font-[JetBrains_Mono] text-emerald-400">✓ Build passed • 1.2s</span>
+              <span className="text-[11px] font-[JetBrains_Mono] text-white/25">→ silmtech</span>
+            </div>
+          </motion.div>
+
+          <div className="absolute bottom-6 right-6 hidden lg:flex items-center gap-2 bg-white text-black px-3 py-1.5 rounded-full text-[10px] font-medium tracking-wide shadow-lg">
+            <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" /> Disponible
           </div>
         </div>
       </section>
 
-      {/* MARQUEE — letras que se mueven (editable arriba en MARQUEE_ITEMS) */}
-      <div className="bg-[#EDEBE6] border-y border-[#E0DDD6] py-3.5 overflow-hidden">
-        <div className="flex gap-8 animate-[marquee_28s_linear_infinite] w-max">
+      {/* MARQUEE */}
+      <div className="bg-[#EDEBE6]/60 border-y border-[#E0DDD6] py-2.5 overflow-hidden">
+        <div className="flex gap-6 animate-[marquee_30s_linear_infinite] w-max">
           {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, i) => (
-            <span key={item + i} className="flex items-center gap-8 shrink-0">
-              <span className="text-[13px] font-medium tracking-[0.08em] uppercase text-[#0F0F0F]/55 whitespace-nowrap">{item}</span>
-              <span className="w-1 h-1 rounded-full bg-[#0F0F0F]/15" />
+            <span key={item + i} className="flex items-center gap-6 shrink-0">
+              <span className="text-[11px] font-[JetBrains_Mono] tracking-[0.12em] uppercase text-[#0F0F0F]/40 whitespace-nowrap">{item}</span>
+              <span className="w-px h-3 bg-[#0F0F0F]/8" />
             </span>
           ))}
         </div>
         <style>{`@keyframes marquee { 0% { transform: translateX(0) } 100% { transform: translateX(-33.33%) } }`}</style>
       </div>
 
-      {/* SERVICIOS PREVIEW */}
-      <section id="servicios" className="max-w-[1280px] mx-auto px-6 md:px-10 py-16 md:py-24">
+      {/* SERVICIOS — asimétrico editorial (Mercury) */}
+      <section id="servicios" className="max-w-[1280px] mx-auto px-6 md:px-10 py-14 md:py-20">
         <Reveal>
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+          <div className="flex items-end justify-between gap-6 mb-8">
             <div>
-              <p className="text-[11px] font-medium tracking-[0.16em] uppercase text-[#73706B] mb-3">Servicios</p>
-              <h2 className="font-[Space_Grotesk] font-semibold text-[36px] md:text-[48px] leading-none tracking-[-0.03em]">
-                Lo que hacemos
-              </h2>
+              <p className="text-[11px] font-[JetBrains_Mono] tracking-[0.14em] uppercase text-[#73706B] mb-2">Servicios</p>
+              <h2 className="font-[Space_Grotesk] font-medium text-[30px] md:text-[40px] leading-none tracking-[-0.03em]">Lo que hacemos</h2>
             </div>
-            <Link to="/servicios" className="inline-flex items-center gap-2 text-[13px] font-medium text-[#0F0F0F] border border-[#0F0F0F]/15 px-5 py-2.5 rounded-full hover:bg-[#0F0F0F] hover:text-white transition-colors">
-              Explorar servicios →
-            </Link>
+            <Link to="/servicios" className="hidden md:inline-flex text-[12px] font-medium text-[#0F0F0F]/60 hover:text-[#0F0F0F] underline underline-offset-4 decoration-[#E0DDD6]">Ver todo →</Link>
           </div>
         </Reveal>
 
-        <div className="grid md:grid-cols-3 gap-4">
-          {SERVICES_PREVIEW.map((s, i) => (
-            <Reveal key={s.num} delay={i * 0.07}>
-              <Link to="/servicios" className="group bg-white border border-[#E0DDD6] rounded-2xl overflow-hidden flex flex-col h-full hover:border-[#0F0F0F]/15 hover:shadow-sm transition-all">
-                <div className="relative h-[210px] overflow-hidden bg-[#EDEBE6]">
-                  <img src={s.img} alt={s.title} className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-700" />
-                  <span className="absolute top-4 left-4 font-mono text-[11px] tracking-wide bg-white/90 backdrop-blur px-2.5 py-1 rounded-full font-medium">{s.num}</span>
+        <div className="grid lg:grid-cols-[1.35fr_0.9fr] gap-4">
+          {/* Destacado — Stripe accent */}
+          <Reveal>
+            <Link to="/servicios" className="group relative bg-white border border-[#E0DDD6] rounded-[12px] overflow-hidden flex flex-col lg:flex-row h-full min-h-[380px] hover:border-[#0F0F0F]/10 hover:shadow-[0_8px_24px_rgba(0,0,0,0.06)] transition-all">
+              <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-[#06B6D4] via-[#7C3AED] to-[#EC4899] opacity-80" />
+              <div className="lg:w-[52%] relative h-[200px] lg:h-auto overflow-hidden bg-[#EDEBE6]">
+                <img src={SERVICES_PREVIEW[0].img} alt={SERVICES_PREVIEW[0].title} className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700 grayscale group-hover:grayscale-0" />
+                <span className="absolute top-3 left-3 text-[10px] font-[JetBrains_Mono] tracking-wide bg-white px-2 py-1 rounded-full shadow-sm">01 — Destacado</span>
+              </div>
+              <div className="flex-1 p-6 flex flex-col">
+                <h3 className="font-[Space_Grotesk] font-medium text-[22px] leading-tight tracking-[-0.02em]">{SERVICES_PREVIEW[0].title}</h3>
+                <p className="text-[13px] leading-relaxed text-[#73706B] mt-2">{SERVICES_PREVIEW[0].desc}</p>
+                <div className="flex gap-2 mt-4 text-[11px] font-[JetBrains_Mono] text-[#0F0F0F]/45">
+                  {SERVICES_PREVIEW[0].tags.map(t => <span key={t} className="after:content-['·'] last:after:content-[''] after:ml-2">{t}</span>)}
                 </div>
-                <div className="p-6 flex flex-col flex-1">
-                  <h3 className="font-[Space_Grotesk] font-semibold text-[19px] leading-tight tracking-[-0.02em]">{s.title}</h3>
-                  <p className="text-[13px] leading-relaxed text-[#73706B] mt-2 flex-1">{s.desc}</p>
-                  <div className="flex flex-wrap gap-1.5 mt-4">
-                    {s.tags.map(t => (
-                      <span key={t} className="text-[11px] font-medium border border-[#E0DDD6] px-2.5 py-1 rounded-full text-[#73706B] bg-[#F9F8F6]">{t}</span>
-                    ))}
+                <span className="mt-auto pt-6 text-[12px] font-medium inline-flex items-center gap-1.5">Explorar <span className="group-hover:translate-x-0.5 transition-transform">→</span></span>
+              </div>
+            </Link>
+          </Reveal>
+
+          <div className="grid gap-4">
+            {SERVICES_PREVIEW.slice(1).map((s, i) => (
+              <Reveal key={s.num} delay={i * 0.06}>
+                <Link to="/servicios" className="group bg-white border border-[#E0DDD6] rounded-[12px] p-5 flex gap-4 hover:border-[#0F0F0F]/10 transition-colors">
+                  <img src={s.img} alt={s.title} className="w-[96px] h-[96px] rounded-[8px] object-cover shrink-0 grayscale group-hover:grayscale-0 transition-all" />
+                  <div className="min-w-0">
+                    <div className="text-[10px] font-[JetBrains_Mono] text-[#9A9690]">{s.num}</div>
+                    <h3 className="font-[Space_Grotesk] font-medium text-[15px] leading-tight mt-0.5">{s.title}</h3>
+                    <p className="text-[12px] leading-relaxed text-[#73706B] mt-1 line-clamp-2">{s.desc}</p>
+                    <div className="text-[11px] font-[JetBrains_Mono] text-[#0F0F0F]/35 mt-2">{s.tags.join(' · ')}</div>
                   </div>
-                </div>
-              </Link>
-            </Reveal>
-          ))}
+                </Link>
+              </Reveal>
+            ))}
+          </div>
         </div>
 
-        <Reveal delay={0.15}>
-          <div className="mt-6 bg-[#0F0F0F] rounded-2xl px-6 md:px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-4 text-white">
-            <p className="text-[13px] text-white/60 text-center md:text-left">
-              ¿No sabes qué necesitas? <span className="text-white font-medium">Te orientamos sin compromiso.</span>
-            </p>
-            <Link to="/contacto" className="shrink-0 bg-white text-black px-6 py-2.5 rounded-full text-[13px] font-semibold hover:bg-zinc-100 transition-colors">
-              Hablar con un experto
-            </Link>
+        <Reveal delay={0.1}>
+          <div className="mt-4 bg-[#0F0F0F] rounded-[12px] px-5 py-4 flex flex-col md:flex-row items-center justify-between gap-3 text-white border border-white/5 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-[#06B6D4]/10 via-[#7C3AED]/10 to-transparent opacity-60" />
+            <p className="relative text-[12px] text-white/60">¿No sabes qué necesitas? <span className="text-white font-medium">Te orientamos sin compromiso.</span></p>
+            <Link to="/contacto" className="relative bg-white text-black px-5 py-2 rounded-full text-[12px] font-medium hover:bg-zinc-100 transition-colors">Hablar con un experto →</Link>
           </div>
         </Reveal>
       </section>
 
-      {/* PROCESO */}
-      <section id="proceso" className="bg-[#0F0F0F] text-white py-16 md:py-24">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-10">
-          <Reveal>
-            <div className="flex items-end justify-between gap-4 mb-2">
-              <p className="text-[11px] font-medium tracking-[0.16em] uppercase text-white/30">Proceso</p>
-              <span className="hidden md:block text-[11px] text-white/30">Haz click en cada paso →</span>
+      {/* NOSOTROS — Mercury calm */}
+      <section id="nosotros" className="max-w-[1280px] mx-auto px-6 md:px-10 py-14 md:py-20 grid lg:grid-cols-[0.95fr_1.05fr] gap-10 items-center">
+        <Reveal>
+          <p className="text-[11px] font-[JetBrains_Mono] tracking-[0.14em] uppercase text-[#73706B]">Nosotros</p>
+          <h2 className="font-[Space_Grotesk] font-medium text-[30px] md:text-[40px] leading-[0.95] tracking-[-0.03em] mt-2">Tecnología<br />con criterio<span className="font-[Instrument_Serif] italic font-normal">.</span></h2>
+          <p className="text-[13px] leading-relaxed text-[#73706B] mt-4 max-w-[420px]">
+            Sin intermediarios. Hablas directo con quien diseña y codea. Inspirado en el cuidado de Mercury y la precisión de Linear.
+          </p>
+          <Link to="/servicios" className="inline-flex mt-6 text-[12px] font-medium border border-[#0F0F0F]/10 px-4 py-2 rounded-full hover:bg-[#0F0F0F] hover:text-white transition-colors">Conocer servicios →</Link>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <div className="relative rounded-[12px] overflow-hidden bg-[#EDEBE6] aspect-[4/3.1]">
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=900&fit=crop&auto=format" alt="Equipo" className="w-full h-full object-cover grayscale-[0.2]" />
+            <div className="absolute bottom-3 left-3 right-3 bg-white/95 backdrop-blur rounded-[10px] px-3 py-3 flex items-center gap-3">
+              <img src={logoBulb} alt="" className="w-7 h-7 object-contain" />
+              <div>
+                <p className="text-[11px] font-medium leading-tight">Trabajo directo, sin capas.</p>
+                <p className="text-[11px] text-[#73706B] font-[JetBrains_Mono]">silmtech716@gmail.com</p>
+              </div>
             </div>
-            <h2 className="font-[Space_Grotesk] font-semibold text-[36px] md:text-[48px] leading-none tracking-[-0.03em] mb-10">Así trabajamos</h2>
+          </div>
+        </Reveal>
+      </section>
+
+      {/* PROCESO — de últimas, premium editorial */}
+      <section id="proceso" className="relative bg-[#0A0A0A] text-white py-16 md:py-24 overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: `radial-gradient(circle at 30% 20%, #7C3AED 0%, transparent 45%), radial-gradient(circle at 80% 80%, #06B6D4 0%, transparent 40%)` }} />
+        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="relative max-w-[1280px] mx-auto px-6 md:px-10">
+          <Reveal>
+            <div className="max-w-[720px] mx-auto text-center mb-10">
+              <p className="text-[11px] font-[JetBrains_Mono] tracking-[0.16em] uppercase text-white/30">Proceso</p>
+              <h2 className="font-[Space_Grotesk] font-medium text-[32px] md:text-[46px] leading-none tracking-[-0.03em] mt-3">Así trabajamos</h2>
+              <p className="text-[13px] leading-relaxed text-white/45 mt-3">Claro, sin sorpresas. Haz click en cada paso para ver el detalle.</p>
+            </div>
           </Reveal>
 
-          <div className="grid md:grid-cols-4 gap-4">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             {PROCESS.map((step, i) => (
               <Reveal key={step.n} delay={i * 0.06}>
-                <button
-                  onClick={() => setActive(step)}
-                  className="w-full text-left border border-white/10 rounded-2xl p-7 h-full bg-white/[0.03] hover:bg-white/[0.07] hover:border-white/15 transition-colors group"
-                >
-                  <div className="font-mono text-[11px] text-white/25">{step.n}</div>
-                  <div className="w-6 h-px bg-white/15 my-4 group-hover:w-8 transition-all" />
-                  <div className="font-[Space_Grotesk] font-medium text-[16px] tracking-[-0.01em] flex items-center gap-2">
-                    {step.t} <span className="opacity-0 group-hover:opacity-100 translate-x-[-4px] group-hover:translate-x-0 transition-all text-[12px]">↗</span>
+                <button onClick={() => setActive(step)} className="group relative text-left bg-white/[0.03] hover:bg-white/[0.06] border border-white/8 hover:border-white/15 rounded-[16px] overflow-hidden transition-all flex flex-col h-full">
+                  <div className="relative h-[150px] overflow-hidden">
+                    <img src={step.img} alt={step.t} className="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-[1.03] transition-all duration-500 grayscale group-hover:grayscale-0" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/40 to-transparent" />
+                    <span className="absolute top-3 left-3 bg-white text-black px-2 py-1 rounded-full text-[10px] font-[JetBrains_Mono] font-medium">{step.n}</span>
+                    <span className="absolute bottom-3 right-3 w-7 h-7 rounded-full bg-white text-black grid place-items-center opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all text-[11px]">↗</span>
                   </div>
-                  <p className="text-[13px] leading-relaxed text-white/45 mt-2">{step.short}</p>
+                  <div className="p-5 flex flex-col flex-1">
+                    <h3 className="font-[Space_Grotesk] font-medium text-[16px]">{step.t}</h3>
+                    <p className="text-[12.5px] leading-relaxed text-white/45 mt-1.5 flex-1">{step.short}</p>
+                    <span className="mt-4 inline-flex text-[11px] font-[JetBrains_Mono] tracking-wide text-white/25 group-hover:text-white/60">Ver detalle →</span>
+                  </div>
                 </button>
               </Reveal>
             ))}
@@ -255,80 +317,33 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Modal proceso */}
       <AnimatePresence>
         {active && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6"
-          >
-            <motion.div onClick={() => setActive(null)} className="absolute inset-0 bg-[#0F0F0F]/70 backdrop-blur-sm" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} />
-            <motion.div
-              initial={{ y: 20, opacity: 0, scale: 0.98 }}
-              animate={{ y: 0, opacity: 1, scale: 1 }}
-              exit={{ y: 10, opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="relative bg-[#F9F8F6] rounded-2xl overflow-hidden max-w-[920px] w-full max-h-[90vh] flex flex-col md:grid md:grid-cols-[1.1fr_0.9fr] shadow-2xl"
-            >
-              <div className="relative h-[220px] md:h-auto bg-[#EDEBE6] overflow-hidden">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6">
+            <motion.div onClick={() => setActive(null)} className="absolute inset-0 bg-[#0F0F0F]/60 backdrop-blur-sm" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} />
+            <motion.div initial={{ y: 12, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 8, opacity: 0 }} transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }} className="relative bg-[#F9F8F6] rounded-[14px] overflow-hidden max-w-[880px] w-full max-h-[90vh] flex flex-col md:grid md:grid-cols-[1.05fr_0.95fr]">
+              <div className="relative h-[200px] md:h-auto bg-[#EDEBE6]">
                 <img src={active.img} alt={active.t} className="w-full h-full object-cover" />
-                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[11px] font-mono font-medium">{active.n} — {active.t}</div>
+                <span className="absolute top-3 left-3 bg-white px-2.5 py-1 rounded-full text-[10px] font-[JetBrains_Mono]">{active.n} — {active.t}</span>
               </div>
-              <div className="p-6 md:p-8 overflow-auto">
-                <div className="flex items-start justify-between gap-4">
-                  <h3 className="font-[Space_Grotesk] font-semibold text-[26px] leading-none tracking-[-0.02em]">{active.t}</h3>
-                  <button onClick={() => setActive(null)} className="shrink-0 w-8 h-8 rounded-full bg-[#0F0F0F] text-white grid place-items-center hover:bg-black transition-colors">✕</button>
+              <div className="p-6 md:p-7 overflow-auto">
+                <div className="flex items-start justify-between gap-3">
+                  <h3 className="font-[Space_Grotesk] font-medium text-[22px] leading-none">{active.t}</h3>
+                  <button onClick={() => setActive(null)} className="w-7 h-7 rounded-full bg-[#0F0F0F] text-white grid place-items-center text-[12px]">✕</button>
                 </div>
-                <p className="text-[13px] leading-relaxed text-[#73706B] mt-4">{active.desc}</p>
-                <ul className="mt-5 space-y-2">
-                  {active.bullets.map(b => (
-                    <li key={b} className="flex gap-2 text-[13px]"><span className="mt-[7px] w-1.5 h-1.5 rounded-full bg-[#0F0F0F] shrink-0" /> {b}</li>
-                  ))}
+                <p className="text-[12.5px] leading-relaxed text-[#73706B] mt-3">{active.desc}</p>
+                <ul className="mt-4 space-y-1.5">
+                  {active.bullets.map(b => <li key={b} className="flex gap-2 text-[12.5px]"><span className="mt-2 w-1 h-1 rounded-full bg-[#0F0F0F] shrink-0" />{b}</li>)}
                 </ul>
-                <div className="mt-6 flex gap-3">
-                  <button onClick={() => setActive(null)} className="px-5 py-2.5 rounded-full border border-[#0F0F0F]/15 text-[13px] font-medium hover:bg-white transition-colors">Cerrar</button>
-                  <Link to="/contacto" onClick={() => setActive(null)} className="px-5 py-2.5 rounded-full bg-[#0F0F0F] text-white text-[13px] font-semibold hover:bg-black transition-colors">Empezar en {active.t.toLowerCase()} →</Link>
+                <div className="mt-5 flex gap-2">
+                  <button onClick={() => setActive(null)} className="px-4 py-2 rounded-full border border-[#0F0F0F]/10 text-[12px]">Cerrar</button>
+                  <Link to="/contacto" onClick={() => setActive(null)} className="px-4 py-2 rounded-full bg-[#0F0F0F] text-white text-[12px] font-medium">Empezar →</Link>
                 </div>
               </div>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* NOSOTROS teaser */}
-      <section id="nosotros" className="max-w-[1280px] mx-auto px-6 md:px-10 py-16 md:py-24 grid lg:grid-cols-2 gap-10 md:gap-16 items-center">
-        <Reveal>
-          <p className="text-[11px] font-medium tracking-[0.16em] uppercase text-[#73706B] mb-3">Nosotros</p>
-          <h2 className="font-[Space_Grotesk] font-semibold text-[36px] md:text-[46px] leading-[0.95] tracking-[-0.03em]">
-            Tecnología<br />con criterio<span className="font-[Instrument_Serif] italic font-normal">.</span>
-          </h2>
-          <p className="text-[14px] leading-relaxed text-[#73706B] mt-5 max-w-[460px]">
-            Directo sin intermediarios, sin humo. Hablas con quien construye.
-          </p>
-          <Link to="/servicios" className="inline-flex items-center gap-2 mt-7 text-[13px] font-medium border border-[#0F0F0F]/12 px-5 py-2.5 rounded-full hover:bg-[#0F0F0F] hover:text-white transition-colors">
-            Conocer servicios →
-          </Link>
-        </Reveal>
-
-        <Reveal delay={0.1}>
-          <div className="relative rounded-2xl overflow-hidden bg-[#EDEBE6] aspect-[4/3.2]">
-            <img
-              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=900&fit=crop&auto=format"
-              alt="Equipo Silmtech"
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur rounded-xl p-4 flex items-center gap-3 shadow-lg">
-              <div className="w-8 h-8 rounded-full bg-[#0F0F0F] grid place-items-center text-white text-[11px] font-semibold">ST</div>
-              <div>
-                <p className="text-[12px] font-medium leading-tight">Trabajo directo con el equipo técnico.</p>
-                <p className="text-[11px] text-[#73706B]">Sin capas, sin demoras.</p>
-              </div>
-            </div>
-          </div>
-        </Reveal>
-      </section>
     </div>
   )
 }

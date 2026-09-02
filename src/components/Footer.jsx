@@ -3,7 +3,9 @@ import logoBulb from '../assets/logo-bulb.png'
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0F0F0F] text-white border-t border-white/10">
+    <footer className="relative bg-[#0F0F0F] text-white border-t border-white/10">
+      <div className="absolute top-0 inset-x-0 h-[1.5px] bg-gradient-to-r from-[#06B6D4] via-[#7C3AED] to-[#EC4899] opacity-90" />
+      <div className="absolute bottom-0 inset-x-0 h-[1.5px] bg-gradient-to-r from-[#06B6D4] via-[#7C3AED] to-[#EC4899] opacity-50" />
       <div className="max-w-[1280px] mx-auto px-6 md:px-10 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
         <span className="flex items-center gap-2.5">
           <img src={logoBulb} alt="Silmtech" className="h-6 w-auto object-contain" />

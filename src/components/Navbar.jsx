@@ -36,6 +36,7 @@ export default function Navbar() {
               : 'bg-[#0F0F0F] border-white/[0.06]'
         }`}
       >
+        <div className="absolute top-0 inset-x-0 h-[1.5px] bg-gradient-to-r from-[#06B6D4] via-[#7C3AED] to-[#EC4899]" />
         <Link to="/" className="flex items-center gap-2.5">
           <img src={logoBulb} alt="Silmtech" className="h-8 w-auto object-contain" />
           <span className="font-[Space_Grotesk] font-semibold text-[17px] tracking-[-0.02em] text-white">
