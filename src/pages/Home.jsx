@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { useRef, useState, useEffect } from 'react'
+import logoBulb from '../assets/logo-bulb.png'
 
 // Edita este array para cambiar el texto que se mueve — ahora separado del hero, sin sobreposición
 const MARQUEE_ITEMS = ['Diseño web', 'Software a medida', 'Instalación', 'Soporte', 'Automatización', 'UX/UI']
@@ -99,7 +100,7 @@ export default function Home() {
             transition={{ delay: 0.15, duration: 0.5 }}
             className="inline-flex items-center gap-2.5 text-white/45 text-[11px] font-medium tracking-[0.16em] uppercase mb-8"
           >
-            <img src="/logo-bulb.png" alt="" className="w-7 h-7 object-contain" />
+            <img src={logoBulb} alt="" className="w-7 h-7 object-contain" />
             Estudio de tecnología
           </motion.div>
 

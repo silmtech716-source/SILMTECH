@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link, useLocation } from 'react-router-dom'
 import MenuOverlay from './MenuOverlay'
+import logoBulb from '../assets/logo-bulb.png'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
@@ -36,7 +37,7 @@ export default function Navbar() {
         }`}
       >
         <Link to="/" className="flex items-center gap-2.5">
-          <img src="/logo-bulb.png" alt="Silmtech" className="h-8 w-auto object-contain" />
+          <img src={logoBulb} alt="Silmtech" className="h-8 w-auto object-contain" />
           <span className="font-[Space_Grotesk] font-semibold text-[17px] tracking-[-0.02em] text-white">
             Silmtech
           </span>
