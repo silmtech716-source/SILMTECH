@@ -198,9 +198,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* MARQUEE — optimizado Firefox + móvil */}
+      {/* MARQUEE — Framer Motion para Firefox + móvil fluido */}
       <div className="bg-[#EDEBE6]/60 border-y border-[#E0DDD6] py-2 sm:py-2.5 overflow-hidden">
-        <div className="flex gap-4 sm:gap-6 animate-[marquee_28s_linear_infinite] w-max will-change-transform" style={{ transform: 'translate3d(0,0,0)' }}>
+        <motion.div
+          className="flex gap-4 sm:gap-6 w-max"
+          style={{ willChange: 'transform' }}
+          animate={{ x: ['0%', '-50%'] }}
+          transition={{ duration: 28, repeat: Infinity, ease: 'linear' }}
+        >
           {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, i) => (
             <span key={item + i} className="flex items-center gap-4 sm:gap-6 shrink-0">
               <span className="text-[10px] sm:text-[11px] font-[JetBrains_Mono] tracking-[0.12em] uppercase text-[#0F0F0F]/40 whitespace-nowrap">{item}</span>
@@ -208,11 +213,7 @@ export default function Home() {
               <span className="w-1 h-1 rounded-full bg-[#0F0F0F]/15 sm:hidden" />
             </span>
           ))}
-        </div>
-        <style>{`
-          @keyframes marquee { 0% { transform: translate3d(0,0,0) } 100% { transform: translate3d(-50%,0,0) } }
-          @media (prefers-reduced-motion: reduce) { .animate-\[marquee_28s_linear_infinite\] { animation: none; transform: none; } }
-        `}</style>
+        </motion.div>
       </div>
 
       {/* SERVICIOS — asimétrico editorial (Mercury) */}
