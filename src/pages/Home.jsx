@@ -82,11 +82,25 @@ export default function Home() {
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
   const imgY = useTransform(scrollYProgress, [0, 1], ['0%', '10%'])
   const [active, setActive] = useState(null)
+  const [faqOpen, setFaqOpen] = useState(0)
 
   useEffect(() => {
     document.body.style.overflow = active ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [active])
+
+  useEffect(() => {
+    document.title = 'Silmtech — Tecnología que hace crecer tu negocio'
+    const desc = document.querySelector('meta[name="description"]')
+    if (desc) desc.setAttribute('content', 'Páginas web, software a medida e instalación. Respuesta en 24h. Colombia remoto global.')
+    // OG imagen RRSS
+    let og = document.querySelector('meta[property="og:image"]')
+    if (!og) { og = document.createElement('meta'); og.setAttribute('property', 'og:image'); document.head.appendChild(og) }
+    og.setAttribute('content', 'https://silmtech716-source.github.io/SILMTECH/logo-bulb.png')
+    let ogTitle = document.querySelector('meta[property="og:title"]')
+    if (!ogTitle) { ogTitle = document.createElement('meta'); ogTitle.setAttribute('property', 'og:title'); document.head.appendChild(ogTitle) }
+    ogTitle.setAttribute('content', 'Silmtech — Tecnología con criterio')
+  }, [])
 
   return (
     <div className="bg-[#F9F8F6] text-[#0F0F0F] overflow-clip">
@@ -181,23 +195,24 @@ export default function Home() {
             </div>
           </motion.div>
 
-          <div className="absolute bottom-6 right-6 hidden lg:flex items-center gap-2 bg-white text-black px-3 py-1.5 rounded-full text-[10px] font-medium tracking-wide shadow-lg">
-            <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" /> Disponible
-          </div>
         </div>
       </section>
 
-      {/* MARQUEE */}
-      <div className="bg-[#EDEBE6]/60 border-y border-[#E0DDD6] py-2.5 overflow-hidden">
-        <div className="flex gap-6 animate-[marquee_30s_linear_infinite] w-max">
-          {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, i) => (
-            <span key={item + i} className="flex items-center gap-6 shrink-0">
-              <span className="text-[11px] font-[JetBrains_Mono] tracking-[0.12em] uppercase text-[#0F0F0F]/40 whitespace-nowrap">{item}</span>
-              <span className="w-px h-3 bg-[#0F0F0F]/8" />
+      {/* MARQUEE — optimizado Firefox + móvil */}
+      <div className="bg-[#EDEBE6]/60 border-y border-[#E0DDD6] py-2 sm:py-2.5 overflow-hidden">
+        <div className="flex gap-4 sm:gap-6 animate-[marquee_28s_linear_infinite] w-max will-change-transform" style={{ transform: 'translate3d(0,0,0)' }}>
+          {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, i) => (
+            <span key={item + i} className="flex items-center gap-4 sm:gap-6 shrink-0">
+              <span className="text-[10px] sm:text-[11px] font-[JetBrains_Mono] tracking-[0.12em] uppercase text-[#0F0F0F]/40 whitespace-nowrap">{item}</span>
+              <span className="w-px h-3 bg-[#0F0F0F]/8 hidden sm:block" />
+              <span className="w-1 h-1 rounded-full bg-[#0F0F0F]/15 sm:hidden" />
             </span>
           ))}
         </div>
-        <style>{`@keyframes marquee { 0% { transform: translateX(0) } 100% { transform: translateX(-33.33%) } }`}</style>
+        <style>{`
+          @keyframes marquee { 0% { transform: translate3d(0,0,0) } 100% { transform: translate3d(-50%,0,0) } }
+          @media (prefers-reduced-motion: reduce) { .animate-\[marquee_28s_linear_infinite\] { animation: none; transform: none; } }
+        `}</style>
       </div>
 
       {/* SERVICIOS — asimétrico editorial (Mercury) */}
@@ -218,7 +233,7 @@ export default function Home() {
             <Link to="/servicios" className="group relative bg-white border border-[#E0DDD6] rounded-[12px] overflow-hidden flex flex-col lg:flex-row h-full min-h-[380px] hover:border-[#0F0F0F]/10 hover:shadow-[0_8px_24px_rgba(0,0,0,0.06)] transition-all">
               <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-[#06B6D4] via-[#7C3AED] to-[#EC4899] opacity-80" />
               <div className="lg:w-[52%] relative h-[200px] lg:h-auto overflow-hidden bg-[#EDEBE6]">
-                <img src={SERVICES_PREVIEW[0].img} alt={SERVICES_PREVIEW[0].title} className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700 grayscale group-hover:grayscale-0" />
+                <img src={SERVICES_PREVIEW[0].img} alt={`Imagen de ${SERVICES_PREVIEW[0].title} - servicio de Silmtech`} className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700 grayscale group-hover:grayscale-0" loading="lazy" />
                 <span className="absolute top-3 left-3 text-[10px] font-[JetBrains_Mono] tracking-wide bg-white px-2 py-1 rounded-full shadow-sm">01 — Destacado</span>
               </div>
               <div className="flex-1 p-6 flex flex-col">
@@ -236,7 +251,7 @@ export default function Home() {
             {SERVICES_PREVIEW.slice(1).map((s, i) => (
               <Reveal key={s.num} delay={i * 0.06}>
                 <Link to="/servicios" className="group bg-white border border-[#E0DDD6] rounded-[12px] p-5 flex gap-4 hover:border-[#0F0F0F]/10 transition-colors">
-                  <img src={s.img} alt={s.title} className="w-[96px] h-[96px] rounded-[8px] object-cover shrink-0 grayscale group-hover:grayscale-0 transition-all" />
+                  <img src={s.img} alt={`Imagen de ${s.title} - servicio Silmtech`} className="w-[96px] h-[96px] rounded-[8px] object-cover shrink-0 grayscale group-hover:grayscale-0 transition-all" loading="lazy" />
                   <div className="min-w-0">
                     <div className="text-[10px] font-[JetBrains_Mono] text-[#9A9690]">{s.num}</div>
                     <h3 className="font-[Space_Grotesk] font-medium text-[15px] leading-tight mt-0.5">{s.title}</h3>
@@ -270,7 +285,7 @@ export default function Home() {
         </Reveal>
         <Reveal delay={0.08}>
           <div className="relative rounded-[12px] overflow-hidden bg-[#EDEBE6] aspect-[4/3.1]">
-            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=900&fit=crop&auto=format" alt="Equipo" className="w-full h-full object-cover grayscale-[0.2]" />
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=900&fit=crop&auto=format" alt="Foto de equipo de Silmtech trabajando en oficina" className="w-full h-full object-cover grayscale-[0.2]" loading="lazy" />
             <div className="absolute bottom-3 left-3 right-3 bg-white/95 backdrop-blur rounded-[10px] px-3 py-3 flex items-center gap-3">
               <img src={logoBulb} alt="" className="w-7 h-7 object-contain" />
               <div>
@@ -282,7 +297,7 @@ export default function Home() {
         </Reveal>
       </section>
 
-      {/* PROCESO — de últimas, premium editorial */}
+      {/* PROCESO — premium editorial */}
       <section id="proceso" className="relative bg-[#0A0A0A] text-white py-16 md:py-24 overflow-hidden">
         <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: `radial-gradient(circle at 30% 20%, #7C3AED 0%, transparent 45%), radial-gradient(circle at 80% 80%, #06B6D4 0%, transparent 40%)` }} />
         <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
@@ -344,6 +359,30 @@ export default function Home() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* FAQS — de últimas */}
+      <section id="faqs" className="max-w-[800px] mx-auto px-6 md:px-10 py-14 md:py-20">
+        <Reveal>
+          <p className="text-[11px] font-[JetBrains_Mono] tracking-[0.14em] uppercase text-[#73706B] text-center">FAQs</p>
+          <h2 className="font-[Space_Grotesk] font-medium text-[28px] md:text-[36px] leading-none tracking-[-0.03em] text-center mt-2">Preguntas frecuentes</h2>
+        </Reveal>
+        <div className="mt-8 border-t border-[#E0DDD6]">
+          {[
+            { q: '¿Cuánto tarda un proyecto?', a: 'Depende del tipo de proyecto. te damos cronograma cerrado en la propuesta.' },
+            { q: '¿Cómo es el compromiso de tiempo de respuesta?', a: 'Respondemos en menos de 24 horas hábiles y te damos acceso a repo y previews semanales. Soporte continuo tras entrega.' },
+            { q: '¿Hacen migas de pan y SEO técnico?', a: 'Sí. Cada página lleva títulos únicos, metadescripciones, imagen RRSS (og:image), textos ALT y robots.txt optimizado.' },
+            { q: '¿Dónde están ubicados?', a: 'Colombia, remoto global. Ver mapa en Contacto. Reuniones por Meet y entrega online.' },
+          ].map((f, i) => (
+            <div key={f.q} className="border-b border-[#E0DDD6]">
+              <button onClick={() => setFaqOpen(faqOpen === i ? -1 : i)} className="w-full text-left py-4 flex items-center justify-between gap-4">
+                <span className="font-medium text-[13px]">{f.q}</span>
+                <span className={`w-6 h-6 rounded-full border border-[#E0DDD6] grid place-items-center text-[11px] shrink-0 transition-transform ${faqOpen === i ? 'rotate-45 bg-[#0F0F0F] text-white border-[#0F0F0F]' : ''}`}>+</span>
+              </button>
+              {faqOpen === i && <p className="text-[12.5px] leading-relaxed text-[#73706B] pb-4 pr-8">{f.a} <Link to="/contacto" className="underline">Contáctanos</Link></p>}
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   )
 }

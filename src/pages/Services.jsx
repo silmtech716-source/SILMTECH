@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
 
 const SERVICES = [
   {
@@ -39,9 +40,14 @@ function Reveal({ children, delay = 0 }) {
 }
 
 export default function Services() {
+  useEffect(() => {
+    document.title = 'Servicios — Páginas Web y Software a Medida | Silmtech'
+    const m = document.querySelector('meta[name="description"]')
+    if (m) m.setAttribute('content', 'Páginas web, software a medida e instalación. Soluciones que escalan contigo. Sin plantillas genéricas.')
+  }, [])
   return (
     <div className="bg-[#F9F8F6] text-[#0F0F0F]">
-      <div className="bg-[#0F0F0F] text-white pt-[88px] pb-12 md:pb-16 px-6 md:px-10">
+      <div className="bg-[#0F0F0F] text-white pt-6 pb-12 md:pb-16 px-6 md:px-10">
         <div className="max-w-[1280px] mx-auto">
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }} className="text-[11px] tracking-[0.16em] font-medium text-white/35 uppercase mb-4 flex items-center gap-3">
             <span className="w-8 h-px bg-white/15" /> Servicios
@@ -57,6 +63,11 @@ export default function Services() {
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }} className="text-white/50 max-w-[520px] text-[14px] leading-relaxed mt-5">
             Tres servicios núcleo + uno en camino. Sin plantillas genéricas.
           </motion.p>
+          {/* CTA antes del scroll */}
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="mt-6">
+            <Link to="/contacto" className="inline-flex bg-white text-black px-6 py-3 rounded-full text-[13px] font-medium hover:bg-zinc-100 transition-colors">Solicitar propuesta — respuesta en 24h →</Link>
+          </motion.div>
+
         </div>
       </div>
 
@@ -66,7 +77,7 @@ export default function Services() {
             <Reveal key={s.num} delay={i * 0.06}>
               <div className="bg-white border border-[#E0DDD6] rounded-2xl overflow-hidden flex flex-col h-full hover:border-[#0F0F0F]/12 hover:shadow-sm transition-all">
                 <div className="relative h-[240px] overflow-hidden bg-[#EDEBE6]">
-                  <img src={s.img} alt={s.title} className="w-full h-full object-cover" />
+                  <img src={s.img} alt={`Imagen de ${s.title} - servicio de Silmtech`} className="w-full h-full object-cover" loading="lazy" />
                   <span className="absolute top-4 left-4 font-mono text-[11px] bg-white/90 backdrop-blur px-2.5 py-1 rounded-full font-medium">{s.num}</span>
                 </div>
                 <div className="p-6 flex flex-col flex-1">

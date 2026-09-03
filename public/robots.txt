@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://silmtech716-source.github.io/SILMTECH/sitemap.xml

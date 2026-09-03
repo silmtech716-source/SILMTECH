@@ -12,8 +12,11 @@ export default function Footer() {
           <span className="font-[Space_Grotesk] font-semibold text-[14px] tracking-[-0.02em]">Silmtech</span>
         </span>
         <span className="text-[12px] text-white/30">© 2026 Silmtech.</span>
-        <div className="flex gap-5 text-white/40 text-[12px]">
+        <div className="flex flex-wrap justify-center gap-4 sm:gap-5 text-white/40 text-[11px] sm:text-[12px]">
+          <Link to="/" className="hover:text-white transition-colors">Inicio</Link>
+          <Link to="/servicios" className="hover:text-white transition-colors">Servicios</Link>
           <Link to="/contacto" className="hover:text-white transition-colors">Contacto</Link>
+          <Link to="/privacidad" className="hover:text-white transition-colors">Privacidad</Link>
         </div>
       </div>
     </footer>
