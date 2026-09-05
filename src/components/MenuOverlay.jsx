@@ -70,8 +70,8 @@ export default function MenuOverlay({ onClose }) {
             <div className="mt-8 rounded-[12px] bg-white text-black p-5 relative overflow-hidden">
               <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-[#06B6D4] via-[#7C3AED] to-[#EC4899]" />
               <p className="text-[10px] font-[JetBrains_Mono] tracking-[0.12em] uppercase text-black/40">Contacto</p>
-              <a href={`mailto:${import.meta.env.VITE_CONTACT_EMAIL}`} className="block text-[14px] font-medium mt-1 break-all">{import.meta.env.VITE_CONTACT_EMAIL}</a>
-              <a href={import.meta.env.VITE_IG_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 mt-2 text-[12px] font-medium text-[#0F0F0F] border border-[#E0DDD6] px-3 py-1.5 rounded-full hover:bg-[#F9F8F6] transition-colors">
+              <a href={`mailto:${(import.meta.env.VITE_CONTACT_EMAIL || "silmtech716@gmail.com")}`} className="block text-[14px] font-medium mt-1 break-all">{(import.meta.env.VITE_CONTACT_EMAIL || "silmtech716@gmail.com")}</a>
+              <a href={(import.meta.env.VITE_IG_URL || "https://www.instagram.com/silmtech/")} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 mt-2 text-[12px] font-medium text-[#0F0F0F] border border-[#E0DDD6] px-3 py-1.5 rounded-full hover:bg-[#F9F8F6] transition-colors">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><rect x="2" y="2" width="20" height="20" rx="6" /><circle cx="12" cy="12" r="5" /></svg>
                 Instagram DM
               </a>

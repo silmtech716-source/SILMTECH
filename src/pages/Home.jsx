@@ -108,8 +108,8 @@ export default function Home() {
       <section ref={heroRef} className="relative bg-[#0F0F0F] text-white min-h-[88vh] pt-[64px] grid lg:grid-cols-[1.05fr_0.95fr] overflow-hidden">
         {/* Gradient Stripe — bulb azul->púrpura */}
         <div className="absolute inset-0 -z-0">
-          <div className="absolute -top-32 -left-20 w-[900px] h-[520px] bg-gradient-to-br from-[#0EA5E9] via-[#6366F1] to-[#8B5CF6] opacity-[0.18] blur-[80px] rounded-[40%]" />
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[140%] h-[420px] bg-gradient-to-r from-[#06B6D4]/10 via-[#7C3AED]/10 to-[#EC4899]/10 -skew-y-2" />
+          <div className="hidden sm:block absolute -top-32 -left-20 w-[900px] h-[520px] bg-gradient-to-br from-[#0EA5E9] via-[#6366F1] to-[#8B5CF6] opacity-[0.18] blur-[80px] rounded-[40%]" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[140%] h-[420px] bg-gradient-to-r from-[#06B6D4]/10 via-[#7C3AED]/10 to-[#EC4899]/10 -skew-y-2 hidden sm:block" />
           <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: `linear-gradient(white 1px, transparent 1px), linear-gradient(90deg, white 1px, transparent 1px)`, backgroundSize: '36px 36px' }} />
         </div>
 
@@ -198,14 +198,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* MARQUEE — Framer Motion para Firefox + móvil fluido */}
-      <div className="bg-[#EDEBE6]/60 border-y border-[#E0DDD6] py-2 sm:py-2.5 overflow-hidden">
-        <motion.div
-          className="flex gap-4 sm:gap-6 w-max"
-          style={{ willChange: 'transform' }}
-          animate={{ x: ['0%', '-50%'] }}
-          transition={{ duration: 28, repeat: Infinity, ease: 'linear' }}
-        >
+      {/* MARQUEE — CSS optimizado para Firefox Android */}
+      <div className="bg-[#EDEBE6]/60 border-y border-[#E0DDD6] py-2 sm:py-2.5 overflow-hidden contain-layout">
+        <div className="flex gap-4 sm:gap-6 w-max animate-[marquee_40s_linear_infinite] will-change-transform" style={{ transform: 'translateZ(0)', backfaceVisibility: 'hidden' }}>
           {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, i) => (
             <span key={item + i} className="flex items-center gap-4 sm:gap-6 shrink-0">
               <span className="text-[10px] sm:text-[11px] font-[JetBrains_Mono] tracking-[0.12em] uppercase text-[#0F0F0F]/40 whitespace-nowrap">{item}</span>
@@ -213,7 +208,12 @@ export default function Home() {
               <span className="w-1 h-1 rounded-full bg-[#0F0F0F]/15 sm:hidden" />
             </span>
           ))}
-        </motion.div>
+        </div>
+        <style>{`
+          @keyframes marquee { 0% { transform: translate3d(0,0,0) } 100% { transform: translate3d(-50%,0,0) } }
+          @media (prefers-reduced-motion: reduce) { .animate-\[marquee_40s_linear_infinite\] { animation: none } }
+          @media (max-width: 640px) { .animate-\[marquee_40s_linear_infinite\] { animation-duration: 40s } }
+        `}</style>
       </div>
 
       {/* SERVICIOS — asimétrico editorial (Mercury) */}
@@ -291,8 +291,8 @@ export default function Home() {
               <img src={logoBulb} alt="" className="w-7 h-7 object-contain" />
               <div>
                 <p className="text-[11px] font-medium leading-tight">Trabajo directo, sin capas.</p>
-                <p className="text-[11px] text-[#73706B] font-[JetBrains_Mono]">{import.meta.env.VITE_CONTACT_EMAIL}</p>
-                <a href={import.meta.env.VITE_IG_URL} target="_blank" rel="noopener noreferrer" className="text-[11px] font-[JetBrains_Mono] text-[#0F0F0F] underline">Instagram DM →</a>
+                <p className="text-[11px] text-[#73706B] font-[JetBrains_Mono]">{(import.meta.env.VITE_CONTACT_EMAIL || "silmtech716@gmail.com")}</p>
+                <a href={(import.meta.env.VITE_IG_URL || "https://www.instagram.com/silmtech/")} target="_blank" rel="noopener noreferrer" className="text-[11px] font-[JetBrains_Mono] text-[#0F0F0F] underline">Instagram DM →</a>
               </div>
             </div>
           </div>
