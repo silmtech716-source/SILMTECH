@@ -45,6 +45,9 @@ export default function Navbar() {
         </Link>
 
         <div className="flex items-center gap-3">
+          <a href={import.meta.env.VITE_IG_URL} target="_blank" rel="noopener noreferrer" aria-label="Instagram Silmtech" className="hidden md:inline-flex items-center justify-center w-9 h-9 rounded-full bg-white/10 hover:bg-white text-white hover:text-black border border-white/10 transition-colors">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><rect x="2" y="2" width="20" height="20" rx="6" /><circle cx="12" cy="12" r="5" /><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none" /></svg>
+          </a>
           <Link
             to="/contacto"
             className="hidden md:inline-flex items-center gap-2 bg-white text-black hover:bg-zinc-100 px-5 py-2.5 text-[13px] font-semibold tracking-wide rounded-full transition-colors"

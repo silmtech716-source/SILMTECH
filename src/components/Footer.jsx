@@ -17,6 +17,10 @@ export default function Footer() {
           <Link to="/servicios" className="hover:text-white transition-colors">Servicios</Link>
           <Link to="/contacto" className="hover:text-white transition-colors">Contacto</Link>
           <Link to="/privacidad" className="hover:text-white transition-colors">Privacidad</Link>
+          <a href={import.meta.env.VITE_IG_URL} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors inline-flex items-center gap-1">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><rect x="2" y="2" width="20" height="20" rx="6" /><circle cx="12" cy="12" r="5" /></svg>
+            Instagram
+          </a>
         </div>
       </div>
     </footer>

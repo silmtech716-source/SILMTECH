@@ -18,7 +18,7 @@ export default function Privacidad() {
           <h3 className="font-[Space_Grotesk] font-medium text-[#0F0F0F] text-[16px] mt-6">Datos que recolectamos</h3>
           <p>Nombre, correo electrónico, servicio de interés y mensaje. Vía Formspree, que cifra en tránsito (HTTPS) y en reposo.</p>
           <h3 className="font-[Space_Grotesk] font-medium text-[#0F0F0F] text-[16px]">Tus derechos</h3>
-          <p>Puedes solicitar acceso, rectificación o eliminación escribiendo a <a href="mailto:silmtech716@gmail.com" className="underline">silmtech716@gmail.com</a>. Respondemos en 24h (compromiso).</p>
+          <p>Puedes solicitar acceso, rectificación o eliminación escribiendo a <a href={`mailto:${import.meta.env.VITE_CONTACT_EMAIL}`} className="underline">{import.meta.env.VITE_CONTACT_EMAIL}</a>. Respondemos en 24h (compromiso).</p>
           <h3 className="font-[Space_Grotesk] font-medium text-[#0F0F0F] text-[16px]">Cookies</h3>
           <p>Usamos solo cookies técnicas necesarias. No usamos tracking de terceros sin consentimiento.</p>
         </div>

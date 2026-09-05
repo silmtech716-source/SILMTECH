@@ -291,7 +291,8 @@ export default function Home() {
               <img src={logoBulb} alt="" className="w-7 h-7 object-contain" />
               <div>
                 <p className="text-[11px] font-medium leading-tight">Trabajo directo, sin capas.</p>
-                <p className="text-[11px] text-[#73706B] font-[JetBrains_Mono]">silmtech716@gmail.com</p>
+                <p className="text-[11px] text-[#73706B] font-[JetBrains_Mono]">{import.meta.env.VITE_CONTACT_EMAIL}</p>
+                <a href={import.meta.env.VITE_IG_URL} target="_blank" rel="noopener noreferrer" className="text-[11px] font-[JetBrains_Mono] text-[#0F0F0F] underline">Instagram DM →</a>
               </div>
             </div>
           </div>
